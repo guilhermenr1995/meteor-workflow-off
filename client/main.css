@@ -3,3 +3,19 @@
 .user-panel {
 	height: 100px;
 }
+
+.user-panel>.info {
+    padding: 10px 10px 10px 10px !important;
+    line-height: 1 !important;
+    position: absolute !important;
+    left: 0 !important;
+    width: 100% !important;
+}
+
+.ml-8 {
+	margin-left: 8px;
+}
+
+.content-wrapper {
+	min-height: 0 !important;
+}

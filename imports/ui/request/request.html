@@ -1,0 +1,31 @@
+<template name="request">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Novo pedido</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <form name="new-request-form" id="new-request-form">
+            <div class="box-body">
+            	<div class="new-request-response"></div>
+                <div class="form">
+                    <div class="form-group">
+                        <label for="name">Requisição</label>
+                        <input type="text" name="name" id="name" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="form">Formulário</label>
+                        <input type="file" name="form" id="form" class="form-control" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <button type="submit" class="btn btn-sm btn-info pull-left save-request">Salvar</button>
+                <button type="button" class="btn btn-sm btn-default pull-left cancel-request ml-8">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</template>

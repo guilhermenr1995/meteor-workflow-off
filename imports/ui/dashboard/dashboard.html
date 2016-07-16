@@ -1,5 +1,5 @@
 <template name="dashboard">
-    {{#AdminLTE skin="blue"}}
+    {{#AdminLTE skin="blue-light"}}
     <header class="main-header">
         <a href="index2.html" class="logo">
             <span class="logo-mini">TCC</span>
@@ -313,126 +313,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Últimas requisições</h3>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table class="table no-margin">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Nome da requisição</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                            <td>Call of Duty IV</td>
-                                            <td><span class="label label-success">Enviado</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="label label-warning">Pendente</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>iPhone 6 Plus</td>
-                                            <td><span class="label label-danger">Entregue</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="label label-info">Processando</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                                            <td>Samsung Smart TV</td>
-                                            <td><span class="label label-warning">Pendente</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                                            <td>iPhone 6 Plus</td>
-                                            <td><span class="label label-danger">Entregue</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                                            <td>Call of Duty IV</td>
-                                            <td><span class="label label-success">Enviado</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Nova requisição</a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">Últimas requisições</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="info-box bg-yellow">
-                        <span class="info-box-icon"><i class="fa fa-area-chart"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 4</span>
-                            <span class="info-box-number">5,200</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 50%"></div>
-                            </div>
-                            <span class="progress-description">
-                    50% de aumento no mês
-                  </span>
-                        </div>
-                    </div>
-                    <div class="info-box bg-green">
-                        <span class="info-box-icon"><i class="fa fa-credit-card"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 5</span>
-                            <span class="info-box-number">92,050</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 20%"></div>
-                            </div>
-                            <span class="progress-description">
-                    20% de aumento no mês
-                  </span>
-                        </div>
-                    </div>
-                    <div class="info-box bg-red">
-                        <span class="info-box-icon"><i class="fa fa-bar-chart"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 6</span>
-                            <span class="info-box-number">114,381</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 70%"></div>
-                            </div>
-                            <span class="progress-description">
-                    70% de aumento no mês
-                  </span>
-                        </div>
-                    </div>
-                    <div class="info-box bg-aqua">
-                        <span class="info-box-icon"><i class="fa fa-line-chart"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 7</span>
-                            <span class="info-box-number">163,921</span>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: 40%"></div>
-                            </div>
-                            <span class="progress-description">
-                    40% de aumento no mês
-                  </span>
-                        </div>
-                    </div>
-                    
+                <div class="col-md-12">
+                    {{#if lastRequests}}
+                    	{{> last_requests}}
+                    {{/if}}
+
+                    {{#if newRequest}}
+                    	{{> request}}
+                    {{/if}}
+
+                    {{#if showRequest}}
+                    	{{> show_request}}
+                    {{/if}}
+
+                    {{#if newOccurrence}}
+                    	{{> occurrence}}
+                    {{/if}}
                 </div>
             </div>
         </section>

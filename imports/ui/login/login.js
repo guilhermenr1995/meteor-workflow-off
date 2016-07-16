@@ -15,13 +15,14 @@ if (Meteor.isClient) {
             Meteor.loginWithPassword(email, password, function(err) {
                 if (err) {
 
-                    console.log('err',err);
+                    console.log('err', err);
                     if (err.error == 403) {
                         $('.main-login-container').html('<div class="alert alert-danger login-message">' + err.reason + '</div>');
                     }
                 }
 
                 Session.set('showRegister', false);
+                Session.set('lastRequests', true);
             });
         },
         'submit #register-form': function(event) {
@@ -30,15 +31,19 @@ if (Meteor.isClient) {
             Accounts.createUser({
                 email: $('#email').val(),
                 password: $('#password').val()
-            }, function (err) {
-                console.log('ativou register');
+            }, function(err) {
+                console.log('err', err);
+
+                if (err.error == 403) {
+                    $('.main-register-container').html('<div class="alert alert-danger register-message">' + err.reason + '</div>');
+                }
             });
         },
         'click .register-link': function(e) {
             e.preventDefault();
             Session.set('showRegister', true);
         },
-        'click .login-link': function (e) {
+        'click .login-link': function(e) {
             e.preventDefault();
             Session.set('showRegister', false);
         }
@@ -46,7 +51,7 @@ if (Meteor.isClient) {
 
     Template.login.helpers({
         'showRegister': function() {
-            
+
             console.log('showRegister', Session.get('showRegister'));
 
             return Session.get('showRegister');
