@@ -10,25 +10,30 @@
         </div>
         <div class="box-body">
             <div class="new-request-response-table"></div>
-            {{#if requests}}
+            {{#if occurrences}}
                 <div class="table-responsive">
                     <table class="table no-margin">
                         <thead>
                             <tr>
                                 <th>Feito por</th>
                                 <th>Comentário</th>
-                                <th>Atualizado em</th>
+                                <th>Criado em</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each occurrences}}
-                                <tr>
-                                    <td>{{name}}</td>
-                                    <td>{{comment}}</td>
-                                    <td>
-                                        {{formatDate updatedAt}}
-                                    </td>
-                                </tr>
+                                {{#each occurrence}}
+                                    <tr>
+                                        <td><a href="mailto:{{client_name}}" title="Enviar e-mail para {{client_name}}">{{client_name}}</a></td>
+                                        <td>{{occurrence}}</td>
+                                        <td>{{formatDate createdAt}}</td>
+                                        <td>
+                                            {{#if userEmail=client_name}}
+                                                <a href="#" class="edit-occurrence btn btn-warning"><i class="fa fa-edit"></i></a>
+                                            {{/if}}
+                                        </td>
+                                    </tr>
+                                {{/each}}
                             {{/each}}
                         </tbody>
                     </table>

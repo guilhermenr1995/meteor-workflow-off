@@ -25,3 +25,4 @@ mfactory:admin-lte
 fortawesome:fontawesome
 session
 mrt:moment
+mrt:flash-messages

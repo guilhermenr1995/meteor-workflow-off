@@ -17,6 +17,18 @@ if (Meteor.isClient) {
 
                     console.log('err', err);
                     if (err.error == 403) {
+                        switch (err.reason) {
+                            case 'User not found':
+                                err.reason = "Usuário não encontrado!"
+                            break;
+
+                            case 'Incorrect password':
+                                err.reason = "Senha incorreta!";
+                            break;
+
+                            default:
+                            break;
+                        }
                         $('.main-login-container').html('<div class="alert alert-danger login-message">' + err.reason + '</div>');
                     }
                 }
@@ -35,6 +47,15 @@ if (Meteor.isClient) {
                 console.log('err', err);
 
                 if (err.error == 403) {
+
+                    switch (err.reason) {
+                        case 'Email already exists.':
+                            err.reason = 'E-mail já existe!';
+                        break;
+
+                        default:
+                        break;
+                    }
                     $('.main-register-container').html('<div class="alert alert-danger register-message">' + err.reason + '</div>');
                 }
             });

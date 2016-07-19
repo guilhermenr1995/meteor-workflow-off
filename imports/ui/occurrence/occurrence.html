@@ -1,3 +1,31 @@
 <template name="occurrence">
-
+	<div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Nova ocorrência para "{{requestName}}"</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <form name="new-occurrence-form" id="new-occurrence-form">
+            <div class="box-body">
+            	<div class="new-occurrence-response"></div>
+                <div class="form">
+                    <div class="form-group">
+                        <label for="client_name">Nome</label>
+                        <input type="text" name="client_name" id="client_name" class="form-control" readonly="" value="{{userEmail}}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="occurrence">Ocorrência</label>
+                        <textarea rows="5" class="form-control" name="occurrence" id="occurrence"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <button type="submit" class="btn btn-sm btn-info pull-left save-occurrence">Salvar</button>
+                <button type="button" class="btn btn-sm btn-default pull-left cancel-occurrence ml-8">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </template>

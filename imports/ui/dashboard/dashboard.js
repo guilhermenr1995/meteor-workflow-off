@@ -19,10 +19,10 @@ Template.dashboard.helpers({
         return Session.get('newRequest');
     },
     showRequest() {
-    	return Session.get('showRequest');
+        return Session.get('showRequest');
     },
     newOccurrence() {
-    	return Session.get('newOccurrence');
+        return Session.get('newOccurrence');
     }
 });
 
@@ -36,14 +36,44 @@ Template.last_requests.helpers({
 });
 
 Template.show_request.helpers({
-	requestName() {
-		return Session.get('req').name;
-	}
+    requestName() {
+        return Session.get('req').name;
+    }
+});
+
+Template.occurrence.helpers({
+    requestName() {
+        return Session.get('req').name;
+    },
+    userEmail() {
+        return Meteor.user().emails[0].address;
+    },
+});
+
+Template.show_request.helpers({
+    occurrences() {
+        return Requests.find({ _id: Session.get('req')._id });
+    },
+    equals(one, two) {
+    	if (one == two) {
+    		return '<a href="#" class="new-occurrence btn btn-warning"><i class="fa fa-edit"></i></a>';
+    	}    
+    }
 });
 
 
 Template.dashboard.rendered = function() {
     Session.set('lastRequests', true);
+};
+
+//Para zerar as variáveis de sessão
+Session.unset = function() {
+    _.each(Session.keys, function(value, key) {
+        // Só pra manter a última requisição clicada
+        if (key != 'req') {
+            Session.set(key, false);
+        }
+    });
 };
 
 Template.dashboard.events({
@@ -55,25 +85,20 @@ Template.dashboard.events({
     'click .new-request': function(e) {
         e.preventDefault();
 
-        Session.set('lastRequests', false);
-        Session.set('ShowRequest', false);
+        Session.unset();
         Session.set('newRequest', true);
     },
     'click .cancel-request': function(e) {
         e.preventDefault();
 
-        Session.set('newRequest', false);
-        Session.set('showRequest', false);
+        Session.unset();
         Session.set('lastRequests', true);
     },
     'click .new-occurrence': function(e) {
         e.preventDefault();
 
-        Session.set('lastRequests', false);
-        Session.set('ShowRequest', false);
+        Session.unset();
         Session.set('newOccurrence', true);
-
-        console.log('Session.get(',Session.get('newOccurrence'));
     },
     'submit #new-request-form': function(e) {
         e.preventDefault();
@@ -85,27 +110,54 @@ Template.dashboard.events({
             createdAt: new Date()
         }, function(err, result) {
             if (err) {
-                $('.new-request-response').html('<div class="alert alert-danger">' + err.error + '</div>');
+                FlashMessages.sendError(err.error);
             } else {
 
-                Session.set('newRequest', false);
+                Session.unset();
                 Session.set('lastRequests', true);
 
-                $('.new-request-response-table').html('<div class="alert alert-success">Requisição criada com sucesso!</div>');
+                FlashMessages.sendSuccess("Requisição criada com sucesso!");
             }
         });
     },
-    'click .follow': function (e) {
-    	e.preventDefault();
 
-    	var id = $(this).data('id');
+    'submit #new-occurrence-form': function(e) {
+        e.preventDefault();
 
-    	var request = Requests.findOne({id: id});
+        Requests.update({ _id: Session.get('req')._id }, {
+            $push: {
+                occurrence: {
+                    client_name: $('#new-occurrence-form #client_name').val(),
+                    occurrence: $('#new-occurrence-form #occurrence').val(),
+                    createdAt: new Date()
+                }
+            }
+        }, function(err, result) {
+            if (err) {
+                FlashMessages.sendError(err.error);
+            } else {
 
-    	console.log('request', request);
+                Session.unset();
+                Session.set('showRequest', true);
 
-    	Session.set('lastRequests', false);
-    	Session.set('showRequest', true);
-    	Session.set('req', request);
+                FlashMessages.sendSuccess("Ocorrência criada com sucesso!");
+            }
+        });
+    },
+
+    'click .cancel-occurrence': function(e) {
+        e.preventDefault();
+
+        Session.unset();
+        Session.set('showRequest', true);
+    },
+    'click .follow': function(e) {
+        e.preventDefault();
+
+        var request = Requests.findOne({ _id: this._id });
+
+        Session.unset();
+        Session.set('req', request);
+        Session.set('showRequest', true);
     }
 });
