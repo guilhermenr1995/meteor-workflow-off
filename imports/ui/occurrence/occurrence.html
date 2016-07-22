@@ -12,9 +12,19 @@
             <div class="box-body">
             	<div class="new-occurrence-response"></div>
                 <div class="form">
+                	<input type="hidden" name="previous_status" id="previous_status" value="{{previousStatus}}"/>
                     <div class="form-group">
                         <label for="client_name">Nome</label>
                         <input type="text" name="client_name" id="client_name" class="form-control" readonly="" value="{{userEmail}}" />
+                    </div>
+                    <div class="form-group">
+                    	<label for="status">Status da requisição</label>
+                    	<select id="status" name="status">
+                    	<option value="Processando">Processando</option>
+                    	<option value="Aguardando aprovação">Aguardando aprovação</option>
+                    	<option value="Finalizado com sucesso">Finalizado com sucesso</option>
+                    	<option value="Finalizado sem sucesso">Finalizado sem sucesso</option>
+                    	</select>
                     </div>
                     <div class="form-group">
                         <label for="occurrence">Ocorrência</label>

@@ -1,56 +1,54 @@
 <template name="last_requests">
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">Últimas requisições</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-            </div>
-        </div>
-        <div class="box-body">
-            <div class="new-request-response-table"></div>
-            {{#if requests}}
-                <div class="table-responsive">
-                    <table class="table no-margin">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Requisição</th>
-                                <th>Formulário</th>
-                                <th>Status</th>
-                                <th>Criado em</th>
-                                <th> &nbsp; </th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each requests}}
-                                <tr>
-                                    <td>{{this._id}}</td>
-                                    <td>{{name}}</td>
-                                    <td>{{file}}</td>
-                                    <td>
-                                        {{#if status_processing status}}
-                                            <span class="label label-info">{{status}}</span>
-                                        {{/if}}
-                                    </td>
-                                    <td>
-                                        {{formatDate createdAt}}
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning follow" data-id="{{this._id}}">Acompanhar</button>
-                                    </td>
-                                </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-                {{else}}
-                <div class="alert alert-warning">Ainda não existem requisições</div>
-            {{/if}}
-        </div>
-        <div class="box-footer clearfix">
-            <a href="#" class="btn btn-sm btn-info pull-left new-request">Nova requisição</a>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Últimas requisições</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
     </div>
+    <div class="box-body">
+        <div class="new-request-response-table"></div>
+        {{#if requests}}
+        <div class="table-responsive">
+            <table class="table no-margin" id="last-requests-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Requisição</th>
+                        <th>Formulário</th>
+                        <th>Status</th>
+                        <th>Criado em</th>
+                        <th> &nbsp; </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each requests}}
+                    <tr>
+                        <td>{{this._id}}</td>
+                        <td>{{name}}</td>
+                        <td>{{file}}</td>
+                        <td>
+                            {{{requestStatus status}}}
+                        </td>
+                        <td>
+                            {{formatDate createdAt}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning follow" data-id="{{this._id}}">Acompanhar</button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <div class="alert alert-warning">Ainda não existem requisições</div>
+        {{/if}}
+    </div>
+    <div class="box-footer clearfix">
+        <a href="#" class="btn btn-sm btn-info pull-left new-request">Nova requisição</a>
+    </div>
+</div>
 </template>

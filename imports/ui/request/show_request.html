@@ -1,50 +1,54 @@
 <template name="show_request">
-	<div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">Ocorrências da requisição "{{requestName}}"</h3>
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-            </div>
-        </div>
-        <div class="box-body">
-            <div class="new-request-response-table"></div>
-            {{#if occurrences}}
-                <div class="table-responsive">
-                    <table class="table no-margin">
-                        <thead>
-                            <tr>
-                                <th>Feito por</th>
-                                <th>Comentário</th>
-                                <th>Criado em</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each occurrences}}
-                                {{#each occurrence}}
-                                    <tr>
-                                        <td><a href="mailto:{{client_name}}" title="Enviar e-mail para {{client_name}}">{{client_name}}</a></td>
-                                        <td>{{occurrence}}</td>
-                                        <td>{{formatDate createdAt}}</td>
-                                        <td>
-                                            {{#if userEmail=client_name}}
-                                                <a href="#" class="edit-occurrence btn btn-warning"><i class="fa fa-edit"></i></a>
-                                            {{/if}}
-                                        </td>
-                                    </tr>
-                                {{/each}}
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-                {{else}}
-                <div class="alert alert-warning">Ainda não existem ocorrências para esta requisição</div>
-            {{/if}}
-        </div>
-        <div class="box-footer clearfix">
-            <a href="#" class="btn btn-sm btn-info pull-left new-occurrence">Nova ocorrência</a>
-            <a href="#" class="btn btn-sm btn-default pull-left cancel-request ml-8">Voltar</a>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Ocorrências da requisição "{{requestName}}"</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
     </div>
+    <div class="box-body">
+        <div class="request">
+            <form>
+                <div class="form-group">
+                    <label for="created_by">Criado por:</label>
+                    <input type="text" class="form-control" value="{{requestCreatedBy}}" disabled/>
+                </div>
+            </form>
+        </div>
+        {{#if hasOccurrences}}
+        <div class="table-responsive">
+            <table class="table no-margin">
+                <thead>
+                    <tr>
+                        <th>Feito por</th>
+                        <th>Comentário</th>
+                        <th>Status</th>
+                        <th>Criado em</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each requestOccurrences}}
+                        {{#each occurrences}}
+                            <tr>
+                                <td><a href="mailto:{{client_name}}" title="Enviar e-mail para {{client_name}}">{{client_name}}</a></td>
+                                <td>{{occurrence}}</td>
+                                <td>{{{requestStatus previous_status}}} → {{{requestStatus current_status}}}</td>
+                                <td>{{formatDate createdAt}}</td>
+                            </tr>
+                        {{/each}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <div class="alert alert-warning">Ainda não existem ocorrências para esta requisição</div>
+        {{/if}}
+    </div>
+    <div class="box-footer clearfix">
+        <a href="#" class="btn btn-sm btn-info pull-left new-occurrence">Nova ocorrência</a>
+        <a href="#" class="btn btn-sm btn-default pull-left cancel-request ml-8">Voltar</a>
+    </div>
+</div>
 </template>

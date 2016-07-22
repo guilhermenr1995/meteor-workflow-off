@@ -50,34 +50,44 @@
         </section>
         <section class="content">
             <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="fa fa-gear"></i></span>
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-download"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Requisições neste mês</span>
-                            <span class="info-box-number">90<small>%</small></span>
+                            <span class="info-box-text">Processando</span>
+                            <span class="info-box-number">{{requestsProcessing}}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-ellipsis-h"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 2</span>
-                            <span class="info-box-number">29</span>
+                            <span class="info-box-text">Aguardando</span>
+                            <span class="info-box-number">{{requestsOnhold}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-times"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Finalizadas sem sucesso</span>
+                            <span class="info-box-number">{{requestsUnsuccessful}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="clearfix visible-sm-block"></div>
-                <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="col-md-3 col-sm-3 col-xs-6">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-shopping-cart"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Exemplo 3</span>
-                            <span class="info-box-number">760</span>
+                            <span class="info-box-text">Finalizadas com sucesso</span>
+                            <span class="info-box-number">{{requestsSuccessful}}</span>
                         </div>
                     </div>
                 </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-12">
