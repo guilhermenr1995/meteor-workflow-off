@@ -27,3 +27,5 @@ session
 mrt:moment
 mrt:flash-messages
 brentjanderson:buzz
+tomi:upload-server
+tomi:upload-jquery

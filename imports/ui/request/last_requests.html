@@ -19,6 +19,7 @@
                         <th>Requisição</th>
                         <th>Formulário</th>
                         <th>Status</th>
+                        <th>Última ocorrência</th>
                         <th>Criado em</th>
                         <th> &nbsp; </th>
                     </tr>
@@ -28,9 +29,12 @@
                     <tr>
                         <td>{{this._id}}</td>
                         <td>{{name}}</td>
-                        <td>{{file}}</td>
+                        <td><a href="{{file.url}}" target="_blank" title="{{file.name}}">{{file.name}}</a></td>
                         <td>
                             {{{requestStatus status}}}
+                        </td>
+                        <td>
+                            {{lastOccurrence occurrences}}
                         </td>
                         <td>
                             {{formatDate createdAt}}

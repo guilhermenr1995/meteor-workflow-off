@@ -71,7 +71,8 @@ Template.dashboard.helpers({
 
 Template.last_requests.helpers({
     requests() {
-        return Requests.find({createdBy: Meteor.user().emails[0].address}, { sort: { createdAt: -1 } });
+        // return Requests.find({createdBy: Meteor.user().emails[0].address}, { sort: { createdAt: -1 } });
+        return Requests.find({}, { sort: { createdAt: -1 } });
     }
 });
 
@@ -115,7 +116,7 @@ Template.dashboard.rendered = function() {
 //Para zerar as variáveis de sessão
 Session.unset = function() {
     _.each(Session.keys, function(value, key) {
-        // Só pra manter a última requisição clicada
+        // Só pra manter a última requisição em evidência
         if (key != 'req') {
             Session.set(key, false);
         }
@@ -146,26 +147,29 @@ Template.dashboard.events({
         Session.unset();
         Session.set('newOccurrence', true);
     },
-    'submit #new-request-form': function(e) {
+    'click #new-request-form .start': function(e) {
         e.preventDefault();
 
-        Requests.insert({
-            name: $('#new-request-form #name').val(),
-            file: $('#new-request-form #form')[0].files,
-            status: 'Processando',
-            createdBy: Meteor.user().emails[0].address,
-            createdAt: new Date()
-        }, function(err, result) {
-            if (err) {
-                FlashMessages.sendError(err.error);
-            } else {
+        Uploader.finished = function(index, fileInfo, templateContext) {
 
-                Session.unset();
-                Session.set('lastRequests', true);
+			Requests.insert({
+	            name: $('#new-request-form #name').val(),
+	            status: 'Processando',
+	            file: fileInfo,
+	            createdBy: Meteor.user().emails[0].address,
+	            createdAt: new Date()
+	        }, function(err, result) {
+	            if (err) {
+	                FlashMessages.sendError(err.error);
+	            } else {
 
-                FlashMessages.sendSuccess("Requisição criada com sucesso!");
-            }
-        });
+	                Session.unset();
+	                Session.set('lastRequests', true);
+
+	                FlashMessages.sendSuccess("Requisição criada com sucesso!");
+	            }
+	        });    
+		}
     },
 
     'submit #new-occurrence-form': function(e) {
