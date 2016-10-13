@@ -21,25 +21,30 @@ Template.registerHelper('lastOccurrence', function(object) {
 
 
 Template.registerHelper('requestStatus', function(status) {
+
+    var labelClass = '';
+
     switch (status) {
         case 'Processando':
-            return '<span class="label label-info">' + status + '</span>';
+            labelClass = 'info';
             break;
 
         case 'Aguardando aprovação':
-            return '<span class="label label-warning">' + status + '</span>';
+            labelClass = 'warning';
             break;
 
         case 'Finalizado com sucesso':
-            return '<span class="label label-success">' + status + '</span>';
+            labelClass = 'success';
             break;
 
         case 'Finalizado sem sucesso':
-            return '<span class="label label-danger">' + status + '</span>';
+            labelClass = 'danger';
             break;
 
         default:
-            return '<span class="label label-info">' + status + '</span>';
+            labelClass = 'primary';
             break;
     }
+    
+    return '<span class="label label-' + labelClass + '">' + status + '</span>';
 });

@@ -44,10 +44,8 @@ if (Meteor.isClient) {
                 email: $('#email').val(),
                 password: $('#password').val()
             }, function(err) {
-                console.log('err', err);
-
+                
                 if (err.error == 403) {
-
                     switch (err.reason) {
                         case 'Email already exists.':
                             err.reason = 'E-mail já existe!';

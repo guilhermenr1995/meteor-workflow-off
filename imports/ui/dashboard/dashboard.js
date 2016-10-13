@@ -25,9 +25,11 @@ Template.dashboard.helpers({
     showRequest() {
         return Session.get('showRequest');
     },
+    //Exibe tela de nova ocorrência
     newOccurrence() {
         return Session.get('newOccurrence');
     },
+    //Requisições no mês
     requestsMonth() {
         return Requests.find({createdBy: Meteor.user().emails[0].address}).count();
     },
@@ -45,27 +47,31 @@ Template.dashboard.helpers({
     },
     requestStatus(status) {
 
-    	switch (status) {
-    		case 'Processando':
-    			return '<span class="label label-info">'+status+'</span>';
-    		break;
+    	var labelClass = '';
 
-    		case 'Aguardando aprovação':
-    			return '<span class="label label-warning">'+status+'</span>';
-    		break;
+        switch (status) {
+            case 'Processando':
+                labelClass = 'info';
+                break;
 
-    		case 'Finalizado com sucesso':
-    			return '<span class="label label-success">'+status+'</span>';
-    		break;
+            case 'Aguardando aprovação':
+                labelClass = 'warning';
+                break;
 
-    		case 'Finalizado sem sucesso':
-    			return '<span class="label label-danger">'+status+'</span>';
-    		break;
+            case 'Finalizado com sucesso':
+                labelClass = 'success';
+                break;
 
-    		default:
-    			return '<span class="label label-info">'+status+'</span>';
-    		break;
-    	}
+            case 'Finalizado sem sucesso':
+                labelClass = 'danger';
+                break;
+
+            default:
+                labelClass = 'primary';
+                break;
+        }
+        
+        return '<span class="label label-' + labelClass + '">' + status + '</span>';
     }
 });
 
@@ -147,6 +153,7 @@ Template.dashboard.events({
         Session.unset();
         Session.set('newOccurrence', true);
     },
+    
     'click #new-request-form .start': function(e) {
         e.preventDefault();
 
